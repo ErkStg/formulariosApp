@@ -1,0 +1,60 @@
+<h2>Reactive: Dinamicos</h2>
+<hr>
+<form action="" (ngSubmit)="guardar()" [formGroup]="miFormulario">
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Nombre</label>
+        <div class="col-sm-9">
+            <input type="text" 
+            placeholder="Nombre de la persona" 
+            formControlName="nombre"
+            class="form-control">
+            <span *ngIf="campoEsValido('nombre')" class="form-text text-danger"> Debe ingresar un nombre</span>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Agregar</label>
+        <div class="col-sm-9">
+            <div class="input-group">
+                <input type="text" 
+                    placeholder="Agregar juego favorito" 
+                    [formControl]="nuevoJuego"
+                    class="form-control"
+                    (keyup.enter)="agregarJuego()">
+                <button type="button" (click)="agregarJuego()" class="btn btn-outline-primary">
+                    Agregar
+                </button>
+            </div>      
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Lista de juegos</label>
+        <div class="col-sm-9" formArrayName="juegos">
+            <div class="input-group mb-1" *ngFor="let juego of favoritosArr.controls; let i = index">
+                <input type="text"
+                       [formControlName]="i"
+                       class="form-control">
+                <button type="button" (click)="borrar(i)" class="btn btn-outline-danger">
+                    Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+        <button type="submit" 
+               
+                class="btn btn-primary float-end">
+            Guardar
+        </button>
+    </div>
+    </div>
+</form>
+
+<span>Valid</span>
+<pre> {{ miFormulario.valid }} </pre>
+<br>
+<span>Value</span>
+<pre> {{ miFormulario.value | json }} </pre>
+<br>
+<span>Nuevo Juego</span>
+<pre> {{ nuevoJuego.valid | json }} </pre>
